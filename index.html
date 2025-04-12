@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Terry Tough Knuckles - King of Alliance</title>
+  
+  <!-- Tailwind CSS (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Font Awesome (CDN) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- All custom CSS moved into a single <style> block -->
+  <style>
+    /* Google Fonts for headings */
+    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;700&display=swap');
+
+    /* Custom Classes & Styles */
+    .hero-bg {
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80');
+      background-size: cover;
+      background-position: center;
+    }
+    .title-font {
+      font-family: 'Bebas Neue', sans-serif;
+    }
+    .body-font {
+      font-family: 'Oswald', sans-serif;
+    }
+    .terry-red {
+      color: #d90429;
+    }
+    .bg-terry-red {
+      background-color: #d90429;
+    }
+    .border-terry-red {
+      border-color: #d90429;
+    }
+    .glow-text {
+      text-shadow: 0 0 10px rgba(217,4,41,0.7);
+    }
+    .timeline-item:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      bottom: -20px;
+      transform: translateX(-50%);
+      width: 2px;
+      height: 20px;
+      background-color: #d90429;
+    }
+    .timeline-dot {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background-color: #d90429;
+      border: 3px solid white;
+    }
+    
+    /* Hidden full-article text styling */
+    .full-article {
+      display: none;
+      margin-top: 0.75rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 0.75rem;
+    }
+
+    /* Additional snippet that was at the bottom of your code */
+    body {
+      padding: 2rem;
+      font-family: -apple-system, BlinkMacSystemFont, "Arial", sans-serif;
+    }
+    h1 {
+      font-size: 16px;
+      margin-top: 0;
+    }
+    p {
+      color: rgb(107,114,128);
+      font-size: 15px;
+      margin-bottom: 10px;
+      margin-top: 5px;
+    }
+    .card {
+      max-width: 620px;
+      margin: 0 auto;
+      padding: 16px;
+      border: 1px solid lightgray;
+      border-radius: 16px;
+    }
+    .card p:last-child {
+      margin-bottom: 0;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-900 text-white body-font">
+  <!-- Navigation -->
+  <nav class="bg-black py-4 px-6 shadow-lg sticky top-0 z-50">
+    <div class="container mx-auto flex justify-between items-center">
+      <div class="flex items-center">
+        <i class="fas fa-crown text-2xl terry-red mr-2"></i>
+        <a href="#" class="title-font text-2xl terry-red glow-text">TOUGH KNUCKLES</a>
+      </div>
+      <div class="hidden md:flex space-x-8">
+        <a href="#about" class="hover:text-red-500 transition">About</a>
+        <a href="#story" class="hover:text-red-500 transition">Story</a>
+        <!-- Gallery link removed -->
+        <a href="#rival" class="hover:text-red-500 transition">The Rival</a>
+        <a href="#news" class="hover:text-red-500 transition">News</a>
+      </div>
+      <button class="md:hidden text-2xl">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-bg min-h-screen flex flex-col items-center justify-center text-center px-4">
+    <div class="max-w-4xl mx-auto">
+      <h1 class="title-font text-6xl md:text-8xl mb-6 terry-red glow-text">TERRY "TOUGH KNUCKLES" DAVIS</h1>
+      <h2 class="title-font text-3xl md:text-5xl mb-8">THE UNDISPUTED KING OF ALLIANCE</h2>
+      
+      <!-- Buttons in a centered flex container -->
+      <div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+        <!-- King's Decree button -->
+        <button
+          class="bg-terry-red hover:bg-red-800 px-8 py-3 rounded-full font-bold uppercase tracking-wider transition">
+          King's Decree
+        </button>
+
+        <!-- Pay Respect Button -->
+        <button
+          id="payRespectBtn"
+          class="border-2 border-terry-red hover:bg-red-900 px-8 py-3 rounded-full font-bold uppercase tracking-wider transition">
+          Pay Respect
+        </button>
+      </div>
+
+      <!-- Respect Bar (hidden by default) -->
+      <div id="respectBarContainer" class="mt-8 w-full max-w-xl mx-auto hidden">
+        <div class="bg-gray-800 border border-terry-red rounded p-4">
+          <p class="text-terry-red font-bold mb-2 text-center uppercase">Respects Paid</p>
+          <div class="bg-gray-600 rounded h-6">
+            <div
+              id="respectBarFill"
+              class="bg-terry-red h-6 rounded-l"
+              style="width: 0%; transition: width 0.3s ease;">
+            </div>
+          </div>
+          <p
+            id="respectBarLabel"
+            class="text-sm text-gray-300 mt-2 text-center">
+            0%
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="py-20 px-6">
+    <div class="container mx-auto max-w-6xl">
+      <h2 class="title-font text-4xl md:text-5xl mb-12 text-center terry-red">ABOUT THE KING</h2>
+      <div class="flex flex-col md:flex-row items-center gap-12">
+        <div class="md:w-1/2">
+          <img 
+            src="https://images.unsplash.com/photo-1606335543475-1c3d7a9d96b3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+            alt="Terry Tough Knuckles"
+            class="w-full rounded-lg shadow-2xl border-4 border-terry-red transform rotate-2 hover:rotate-0 transition duration-500"
+          />
+        </div>
+        <div class="md:w-1/2">
+          <h3 class="title-font text-3xl mb-4 terry-red">Terry "Tough Knuckles" Davis</h3>
+          <p class="text-lg mb-4">
+            Born and raised in the streets of Alliance, Ohio, Terry Davis earned his nickname
+            "Tough Knuckles" through years of street fights and underground boxing matches where he never lost a bout.
+          </p>
+          <p class="text-lg mb-4">
+            Standing at 6'3" and weighing 245lbs of pure muscle, Terry commands respect wherever he goes. His signature move
+            is the "Alliance Annihilator" - a devastating right hook that has knocked out countless challengers.
+          </p>
+          <p class="text-lg mb-6">
+            Beyond his fighting prowess, Terry is known for his charitable work in Alliance, funding youth centers and keeping
+            the streets clean from crime. He's not just a fighter - he's a community leader.
+          </p>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="bg-gray-800 p-4 rounded-lg">
+              <div class="flex items-center mb-2">
+                <i class="fas fa-fist-raised text-xl terry-red mr-2"></i>
+                <span class="font-bold">Fight Record</span>
+              </div>
+              <p>87-0 (All Knockouts)</p>
+            </div>
+            <div class="bg-gray-800 p-4 rounded-lg">
+              <div class="flex items-center mb-2">
+                <i class="fas fa-crown text-xl terry-red mr-2"></i>
+                <span class="font-bold">Reign</span>
+              </div>
+              <p>King since 2012</p>
+            </div>
+            <div class="bg-gray-800 p-4 rounded-lg">
+              <div class="flex items-center mb-2">
+                <i class="fas fa-map-marker-alt text-xl terry-red mr-2"></i>
+                <span class="font-bold">Territory</span>
+              </div>
+              <p>Alliance, Ohio</p>
+            </div>
+            <div class="bg-gray-800 p-4 rounded-lg">
+              <div class="flex items-center mb-2">
+                <i class="fas fa-skull text-xl terry-red mr-2"></i>
+                <span class="font-bold">Biggest Rival</span>
+              </div>
+              <p>Brayden Powers</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Backstory Section -->
+  <section id="story" class="py-20 px-6 bg-gray-800">
+    <div class="container mx-auto max-w-4xl">
+      <h2 class="title-font text-4xl md:text-5xl mb-12 text-center terry-red">THE RISE OF TOUGH KNUCKLES</h2>
+      <div class="relative">
+        <!-- Timeline -->
+        <div class="space-y-16">
+          <!-- Item 1 -->
+          <div class="relative timeline-item pl-8 md:pl-0">
+            <div class="md:flex">
+              <div class="md:w-1/2 md:pr-12 md:text-right">
+                <h3 class="title-font text-2xl terry-red mb-2">1988 - Humble Beginnings</h3>
+                <p class="text-gray-300">
+                  Born to a single mother in Alliance's east side, young Terry learned to fight early,
+                  protecting his neighborhood from bullies and drug dealers.
+                </p>
+              </div>
+              <div class="hidden md:block md:w-1/2"></div>
+            </div>
+            <div class="timeline-dot"></div>
+          </div>
+          <!-- Item 2 -->
+          <div class="relative timeline-item pl-8 md:pl-0">
+            <div class="md:flex">
+              <div class="hidden md:block md:w-1/2 md:pr-12"></div>
+              <div class="md:w-1/2">
+                <h3 class="title-font text-2xl terry-red mb-2">2005 - First Underground Fight</h3>
+                <p class="text-gray-300">
+                  At 17, Terry entered his first illegal boxing match to pay his mother's medical bills.
+                  He knocked out a 250lb biker in 18 seconds.
+                </p>
+              </div>
+            </div>
+            <div class="timeline-dot"></div>
+          </div>
+          <!-- Item 3 -->
+          <div class="relative timeline-item pl-8 md:pl-0">
+            <div class="md:flex">
+              <div class="md:w-1/2 md:pr-12 md:text-right">
+                <h3 class="title-font text-2xl terry-red mb-2">2010 - The Nickname</h3>
+                <p class="text-gray-300">
+                  After winning 25 straight fights with his bare knuckles (refusing gloves),
+                  the media dubbed him "Tough Knuckles" - a name that stuck.
+                </p>
+              </div>
+              <div class="hidden md:block md:w-1/2"></div>
+            </div>
+            <div class="timeline-dot"></div>
+          </div>
+          <!-- Item 4 -->
+          <div class="relative timeline-item pl-8 md:pl-0">
+            <div class="md:flex">
+              <div class="hidden md:block md:w-1/2 md:pr-12"></div>
+              <div class="md:w-1/2">
+                <h3 class="title-font text-2xl terry-red mb-2">2012 - Crowning Moment</h3>
+                <p class="text-gray-300">
+                  Defeated the reigning "King of Alliance" in a legendary 12-round street fight.
+                  The defeated king handed Terry his crown and left town.
+                </p>
+              </div>
+            </div>
+            <div class="timeline-dot"></div>
+          </div>
+          <!-- Item 5 -->
+          <div class="relative timeline-item pl-8 md:pl-0">
+            <div class="md:flex">
+              <div class="md:w-1/2 md:pr-12 md:text-right">
+                <h3 class="title-font text-2xl terry-red mb-2">2018 - Rival Emerges</h3>
+                <p class="text-gray-300">
+                  Brayden Powers, a cocky fighter from Youngstown, began challenging Terry's reign,
+                  leading to their first brutal encounter.
+                </p>
+              </div>
+              <div class="hidden md:block md:w-1/2"></div>
+            </div>
+            <div class="timeline-dot"></div>
+          </div>
+          <!-- Item 6 -->
+          <div class="relative pl-8 md:pl-0">
+            <div class="md:flex">
+              <div class="hidden md:block md:w-1/2 md:pr-12"></div>
+              <div class="md:w-1/2">
+                <h3 class="title-font text-2xl terry-red mb-2">Present Day</h3>
+                <p class="text-gray-300">
+                  Terry continues to rule Alliance with an iron fist, keeping the streets safe while
+                  preparing for his inevitable final showdown with Brayden Powers.
+                </p>
+              </div>
+            </div>
+            <div class="timeline-dot"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Rival Section -->
+  <section id="rival" class="py-20 px-6 bg-gray-800">
+    <div class="container mx-auto max-w-6xl">
+      <h2 class="title-font text-4xl md:text-5xl mb-12 text-center terry-red">THE RIVAL: BRAYDEN POWERS</h2>
+      <div class="flex flex-col md:flex-row items-center gap-12">
+        <div class="md:w-1/2 order-2 md:order-1">
+          <h3 class="title-font text-3xl mb-4 text-red-400">Brayden "The Powerhouse" Powers</h3>
+          <p class="text-lg mb-4">
+            Hailing from Youngstown, Brayden Powers represents everything Terry stands against.
+            A mercenary fighter with no code, Brayden has made it his mission to dethrone Terry and claim Alliance for himself.
+          </p>
+          <p class="text-lg mb-4">
+            Their rivalry began in 2018 when Brayden interrupted one of Terry's charity events,
+            leading to their first brutal confrontation that ended in a draw after police intervention.
+          </p>
+          <p class="text-lg mb-6">
+            Since then, Brayden has been Terry's only opponent to survive a full fight,
+            making him the most dangerous threat to Terry's reign.
+          </p>
+          <div class="bg-gray-900 p-6 rounded-lg border-l-4 border-red-400">
+            <h4 class="title-font text-xl mb-3 text-red-400">Notable Confrontations</h4>
+            <ul class="space-y-3">
+              <li class="flex items-start">
+                <i class="fas fa-skull text-red-400 mt-1 mr-2"></i>
+                <span><strong>2018 Charity Event:</strong> First encounter, ended in draw</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-skull text-red-400 mt-1 mr-2"></i>
+                <span><strong>2019 Street Fight:</strong> Terry won by TKO in 9th round</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-skull text-red-400 mt-1 mr-2"></i>
+                <span><strong>2021 Parking Lot Brawl:</strong> Most brutal fight yet, no winner declared</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="md:w-1/2 order-1 md:order-2">
+          <img 
+            src="https://images.unsplash.com/photo-1600181981860-9ec9798e0bcc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+            alt="Brayden Powers"
+            class="w-full rounded-lg shadow-2xl border-4 border-red-400 transform -rotate-2 hover:rotate-0 transition duration-500"
+          />
+          <div class="mt-4 flex justify-between items-center">
+            <div class="bg-red-900 text-red-100 px-4 py-2 rounded-full">
+              <i class="fas fa-exclamation-triangle mr-2"></i>
+              <span>WANTED: DEAD OR ALIVE</span>
+            </div>
+            <div class="text-right">
+              <p class="text-sm text-gray-400">Last seen: Youngstown</p>
+              <p class="text-sm text-gray-400">Bounty: $50,000</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- News Section -->
+  <section id="news" class="py-20 px-6">
+    <div class="container mx-auto max-w-6xl">
+      <h2 class="title-font text-4xl md:text-5xl mb-12 text-center terry-red">KINGDOM NEWS</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- News Item 1 -->
+        <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition p-0">
+          <img
+            src="https://images.unsplash.com/photo-1571019613454-1cb2f5b2f37d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+            alt="Terry at gym opening"
+            class="w-full h-48 object-cover"
+          />
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-3">
+              <span class="text-sm text-gray-400">June 15, 2023</span>
+              <span class="bg-terry-red text-xs px-2 py-1 rounded-full">Exclusive</span>
+            </div>
+            <h3 class="title-font text-xl mb-2 terry-red">Terry Opens "Iron Will" Training Facility</h3>
+            <p class="text-gray-300 mb-4">
+              The King has unveiled a state-of-the-art gym in downtown Alliance, offering free
+              training to underprivileged youth. The facility features boxing rings, weight training
+              areas, and a mentorship program.
+            </p>
+            <div class="flex items-center text-sm text-gray-400 mb-3">
+              <i class="fas fa-user mr-2"></i>
+              <span>By: Marcus Johnson</span>
+            </div>
+            <!-- Hidden full-article text -->
+            <div class="full-article" id="article-1">
+              <p>
+                <strong>Full Article:</strong> The grand opening ceremony was attended by local
+                youth, boxing enthusiasts, and city officials. Terry emphasized the importance
+                of giving back to the community that shaped him. “I want to make sure no kid
+                in Alliance feels like they have no place to learn discipline or get guidance,”
+                the King said. The new facility is open 7 days a week and will soon host city-wide
+                boxing tournaments.
+              </p>
+            </div>
+            <!-- Read More link -->
+            <a href="#" class="text-terry-red hover:underline flex items-center read-more" data-target="article-1">
+              Read More <i class="fas fa-arrow-right ml-2 text-sm"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- News Item 2 -->
+        <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition p-0">
+          <img
+            src="https://images.unsplash.com/photo-1541534741688-6078c6efb583?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+            alt="Brayden sighting"
+            class="w-full h-48 object-cover"
+          />
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-3">
+              <span class="text-sm text-gray-400">May 28, 2023</span>
+              <span class="bg-red-500 text-xs px-2 py-1 rounded-full">Warning</span>
+            </div>
+            <h3 class="title-font text-xl mb-2 text-red-400">Brayden Powers Spotted Near Alliance</h3>
+            <p class="text-gray-300 mb-4">
+              Multiple eyewitnesses report seeing Terry's rival scouting locations just outside
+              Alliance city limits. The King has increased security and warned citizens to remain vigilant.
+            </p>
+            <div class="flex items-center text-sm text-gray-400 mb-3">
+              <i class="fas fa-user mr-2"></i>
+              <span>By: Sarah Williams</span>
+            </div>
+            <!-- Hidden full-article text -->
+            <div class="full-article" id="article-2">
+              <p>
+                <strong>Full Article:</strong> According to local sources, Brayden was seen driving
+                a black SUV with out-of-state plates. Rumors suggest he may be recruiting new allies
+                or planning a sudden challenge to Terry’s throne. Officials advise anyone spotting
+                suspicious activity to contact the local precinct immediately.
+              </p>
+            </div>
+            <!-- Read More link -->
+            <a href="#" class="text-red-400 hover:underline flex items-center read-more" data-target="article-2">
+              Read More <i class="fas fa-arrow-right ml-2 text-sm"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- News Item 3 -->
+        <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition p-0">
+          <img
+            src="https://images.unsplash.com/photo-1519861531473-9200262188bf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+            alt="Charity event"
+            class="w-full h-48 object-cover"
+          />
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-3">
+              <span class="text-sm text-gray-400">April 10, 2023</span>
+              <span class="bg-blue-500 text-xs px-2 py-1 rounded-full">Community</span>
+            </div>
+            <h3 class="title-font text-xl mb-2 terry-red">Annual Tough Knuckles Charity Raises $250k</h3>
+            <p class="text-gray-300 mb-4">
+              Terry's foundation continues to give back, funding youth programs and community
+              centers across Alliance. This year's gala featured a surprise exhibition match that thrilled attendees.
+            </p>
+            <div class="flex items-center text-sm text-gray-400 mb-3">
+              <i class="fas fa-user mr-2"></i>
+              <span>By: James Robertson</span>
+            </div>
+            <!-- Hidden full-article text -->
+            <div class="full-article" id="article-3">
+              <p>
+                <strong>Full Article:</strong> The highlight of the gala was a friendly
+                “King’s Exhibition” where Terry invited promising young fighters to spar in
+                a lighthearted showdown. In the end, the event raised enough funds to open a
+                new youth center on the east side of Alliance. Organizers call it one of the
+                most successful charity drives in recent memory.
+              </p>
+            </div>
+            <!-- Read More link -->
+            <a href="#" class="text-terry-red hover:underline flex items-center read-more" data-target="article-3">
+              Read More <i class="fas fa-arrow-right ml-2 text-sm"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- News Item 4 -->
+        <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition p-0">
+          <img
+            src="https://images.unsplash.com/photo-1600181981860-9ec9798e0bcc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+            alt="Terry training"
+            class="w-full h-48 object-cover"
+          />
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-3">
+              <span class="text-sm text-gray-400">March 22, 2023</span>
+              <span class="bg-yellow-500 text-xs px-2 py-1 rounded-full">Training</span>
+            </div>
+            <h3 class="title-font text-xl mb-2 terry-red">Terry Reveals New Training Regimen</h3>
+            <p class="text-gray-300 mb-4">
+              In preparation for potential fights, Terry has adopted a brutal new training
+              routine that combines traditional boxing with street fighting techniques. 
+              "I'm always evolving," says the King.
+            </p>
+            <div class="flex items-center text-sm text-gray-400 mb-3">
+              <i class="fas fa-user mr-2"></i>
+              <span>By: Derek Mills</span>
+            </div>
+            <!-- Hidden full-article text -->
+            <div class="full-article" id="article-4">
+              <p>
+                <strong>Full Article:</strong> At 4:00 AM each morning, Terry begins with 10 miles of roadwork
+                followed by intensive calisthenics. Later sessions focus on heavy bag work, sparring,
+                and cross-training with local wrestlers. Terry states the new regimen is designed to keep
+                him “one step ahead” of any challengers. 
+              </p>
+            </div>
+            <!-- Read More link -->
+            <a href="#" class="text-terry-red hover:underline flex items-center read-more" data-target="article-4">
+              Read More <i class="fas fa-arrow-right ml-2 text-sm"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- News Item 5 -->
+        <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition p-0">
+          <img
+            src="https://images.unsplash.com/photo-1518611012118-696072aa579a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+            alt="Street fight"
+            class="w-full h-48 object-cover"
+          />
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-3">
+              <span class="text-sm text-gray-400">February 5, 2023</span>
+              <span class="bg-purple-500 text-xs px-2 py-1 rounded-full">Fight</span>
+            </div>
+            <h3 class="title-font text-xl mb-2 terry-red">Tough Knuckles Defends Title in Street Fight</h3>
+            <p class="text-gray-300 mb-4">
+              Terry successfully defended his unofficial "King of Streets" title against
+              challenger Marco "The Hammer" Rodriguez in a 7-minute bout behind the old steel mill.
+            </p>
+            <div class="flex items-center text-sm text-gray-400 mb-3">
+              <i class="fas fa-user mr-2"></i>
+              <span>By: Lisa Chen</span>
+            </div>
+            <!-- Hidden full-article text -->
+            <div class="full-article" id="article-5">
+              <p>
+                <strong>Full Article:</strong> Witnesses said Terry’s “Alliance Annihilator” hook
+                proved too much for Marco, who put up a strong fight early on. The crowd of
+                about 200 people erupted when Terry landed the final blow. While the fight was
+                unsanctioned, the victory only cements Terry’s local legend. 
+              </p>
+            </div>
+            <!-- Read More link -->
+            <a href="#" class="text-terry-red hover:underline flex items-center read-more" data-target="article-5">
+              Read More <i class="fas fa-arrow-right ml-2 text-sm"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- News Item 6 -->
+        <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition p-0">
+          <img
+            src="https://images.unsplash.com/photo-1606335543475-1c3d7a9d96b3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+            alt="Terry interview"
+            class="w-full h-48 object-cover"
+          />
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-3">
+              <span class="text-sm text-gray-400">January 12, 2023</span>
+              <span class="bg-green-500 text-xs px-2 py-1 rounded-full">Interview</span>
+            </div>
+            <h3 class="title-font text-xl mb-2 terry-red">Exclusive: Terry Talks Legacy and Future</h3>
+            <p class="text-gray-300 mb-4">
+              In a rare sit-down interview, Terry reflects on his decade-long reign and hints
+              at a potential retirement fight. "I'll go out on my terms," the King declares.
+            </p>
+            <div class="flex items-center text-sm text-gray-400 mb-3">
+              <i class="fas fa-user mr-2"></i>
+              <span>By: Carlos Mendez</span>
+            </div>
+            <!-- Hidden full-article text -->
+            <div class="full-article" id="article-6">
+              <p>
+                <strong>Full Article:</strong> During a 30-minute conversation, Terry spoke about
+                his early struggles, his philanthropic efforts, and the possibility of facing
+                Brayden Powers one last time. “If I do retire, I want my people to know I gave
+                everything for Alliance,” he said. For now, the city stands firmly behind
+                its champion.
+              </p>
+            </div>
+            <!-- Read More link -->
+            <a href="#" class="text-terry-red hover:underline flex items-center read-more" data-target="article-6">
+              Read More <i class="fas fa-arrow-right ml-2 text-sm"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-12">
+        <button class="border-2 border-terry-red hover:bg-terry-red px-8 py-3 rounded-full font-bold uppercase tracking-wider transition">
+          View All News
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-black py-12 px-6">
+    <div class="container mx-auto max-w-6xl">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="mb-6 md:mb-0">
+          <div class="flex items-center">
+            <i class="fas fa-crown text-2xl terry-red mr-2"></i>
+            <span class="title-font text-2xl terry-red">TOUGH KNUCKLES</span>
+          </div>
+          <p class="text-gray-500 mt-2">Long live the King of Alliance</p>
+        </div>
+        <div class="flex space-x-6 mb-6 md:mb-0">
+          <a href="#" class="text-gray-400 hover:text-terry-red text-2xl">
+            <i class="fab fa-facebook"></i>
+          </a>
+          <a href="#" class="text-gray-400 hover:text-terry-red text-2xl">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a href="#" class="text-gray-400 hover:text-terry-red text-2xl">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="#" class="text-gray-400 hover:text-terry-red text-2xl">
+            <i class="fab fa-youtube"></i>
+          </a>
+        </div>
+        <div class="text-center md:text-right">
+          <p class="text-gray-500">For official business inquiries:</p>
+          <a href="mailto:court@toughknuckles.com" class="terry-red hover:underline">
+            court@toughknuckles.com
+          </a>
+        </div>
+      </div>
+      <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500">
+        <p>&copy; 2023 Kingdom of Tough Knuckles. All rights reserved.</p>
+        <p class="text-xs mt-2">Unauthorized use of the King's likeness is punishable by law.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Mobile Menu & Smooth Scrolling & Read More Toggles -->
+  <script>
+    // Simple mobile menu toggle
+    document.querySelector('button.md\\:hidden').addEventListener('click', function() {
+      const menu = document.querySelector('.hidden.md\\:flex');
+      if (menu.classList.contains('hidden')) {
+        menu.classList.remove('hidden');
+        menu.classList.add('flex', 'flex-col', 'absolute', 'top-16', 'left-0', 'right-0', 'bg-black', 'py-4', 'px-6', 'space-y-4', 'z-50');
+      } else {
+        menu.classList.add('hidden');
+        menu.classList.remove('flex', 'flex-col', 'absolute', 'top-16', 'left-0', 'right-0', 'bg-black', 'py-4', 'px-6', 'space-y-4', 'z-50');
+      }
+    });
+    
+    // Smooth scrolling for anchor links (excluding "Read More" links)
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        if (!this.classList.contains('read-more')) {
+          e.preventDefault();
+          document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+          
+          // Close mobile menu if open
+          const mobileMenu = document.querySelector('.hidden.md\\:flex');
+          if (!mobileMenu.classList.contains('hidden')) {
+            mobileMenu.classList.add('hidden');
+            mobileMenu.classList.remove('flex', 'flex-col', 'absolute', 'top-16', 'left-0', 'right-0', 'bg-black', 'py-4', 'px-6', 'space-y-4', 'z-50');
+          }
+        }
+      });
+    });
+
+    // Toggle full-article text on "Read More" links
+    document.querySelectorAll('.read-more').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.preventDefault();
+        const articleId = btn.getAttribute('data-target');
+        const fullArticle = document.getElementById(articleId);
+        
+        if (fullArticle.style.display === 'block') {
+          // Hide it
+          fullArticle.style.display = 'none';
+        } else {
+          // Show it
+          fullArticle.style.display = 'block';
+        }
+      });
+    });
+
+    // Progress bar for "Pay Respect" button
+    const payRespectBtn = document.getElementById('payRespectBtn');
+    const respectBarContainer = document.getElementById('respectBarContainer');
+    const respectBarFill = document.getElementById('respectBarFill');
+    const respectBarLabel = document.getElementById('respectBarLabel');
+
+    let respectsPaid = 0;
+
+    payRespectBtn.addEventListener('click', () => {
+      // Show the progress bar container if hidden
+      if (respectBarContainer.classList.contains('hidden')) {
+        respectBarContainer.classList.remove('hidden');
+      }
+      // Increase respectsPaid by 10 (or however much you like)
+      if (respectsPaid < 100) {
+        respectsPaid += 10;
+      }
+      // Update the bar's width and text
+      respectBarFill.style.width = respectsPaid + '%';
+      respectBarLabel.textContent = respectsPaid + '%';
+      
+      // If the bar hits 100%, do something special (optional)
+      if (respectsPaid === 100) {
+        // alert("Your respects have been fully paid!");
+      }
+    });
+  </script>
+
+  <p style="border-radius: 8px; text-align: center; font-size: 12px; color: #fff; margin-top: 16px; position: fixed; left: 8px; bottom: 8px; z-index: 10; background: rgba(0, 0, 0, 0.8); padding: 4px 8px;">
+    Made with
+    <img
+      src="https://enzostvs-deepsite.hf.space/logo.svg"
+      alt="DeepSite Logo"
+      style="width: 16px; height: 16px; vertical-align: middle; display:inline-block; margin-right:3px; filter:brightness(0) invert(1);">
+    <a href="https://enzostvs-deepsite.hf.space"
+       style="color: #fff; text-decoration: underline;"
+       target="_blank">
+      DeepSite
+    </a>
+    - 🧬
+    <a href="https://enzostvs-deepsite.hf.space?remix=wuhp/king-terry"
+       style="color: #fff; text-decoration: underline;"
+       target="_blank">
+      Remix
+    </a>
+  </p>
+</body>
+</html>
