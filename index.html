@@ -95,6 +95,18 @@
     .card p:last-child {
       margin-bottom: 0;
     }
+
+    /* Mobile update for timeline red dots and connecting line */
+    @media (max-width: 768px) {
+      .timeline-dot {
+        left: 1rem; /* Shift dot to the left gutter */
+        transform: translate(0, -50%); /* Remove horizontal centering */
+      }
+      .timeline-item:not(:last-child)::after {
+        left: 1rem; /* Align the vertical line with the new dot position */
+        transform: translateX(0);
+      }
+    }
   </style>
 </head>
 
