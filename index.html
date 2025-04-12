@@ -70,7 +70,7 @@
       padding-top: 0.75rem;
     }
 
-    /* Additional snippet that was at the bottom of your code */
+    /* Base styling for body and cards */
     body {
       padding: 2rem;
       font-family: -apple-system, BlinkMacSystemFont, "Arial", sans-serif;
@@ -100,24 +100,36 @@
 
 <body class="bg-gray-900 text-white body-font">
   <!-- Navigation -->
-  <nav class="bg-black py-4 px-6 shadow-lg sticky top-0 z-50">
+  <nav class="bg-black py-4 px-6 shadow-lg sticky top-0 z-50 relative">
     <div class="container mx-auto flex justify-between items-center">
       <div class="flex items-center">
         <i class="fas fa-crown text-2xl terry-red mr-2"></i>
         <a href="#" class="title-font text-2xl terry-red glow-text">TOUGH KNUCKLES</a>
       </div>
+      <!-- Desktop Navigation -->
       <div class="hidden md:flex space-x-8">
         <a href="#about" class="hover:text-red-500 transition">About</a>
         <a href="#story" class="hover:text-red-500 transition">Story</a>
-        <!-- Gallery link removed -->
         <a href="#rival" class="hover:text-red-500 transition">The Rival</a>
         <a href="#news" class="hover:text-red-500 transition">News</a>
       </div>
-      <button class="md:hidden text-2xl">
+      <!-- Mobile Menu Button -->
+      <button id="openMobileMenu" class="md:hidden text-2xl">
         <i class="fas fa-bars"></i>
       </button>
     </div>
   </nav>
+
+  <!-- Mobile Menu Overlay -->
+  <div id="mobileMenu" class="fixed inset-0 bg-black bg-opacity-95 hidden flex-col items-center justify-center space-y-6 z-50">
+    <a href="#about" class="text-2xl hover:text-red-500 transition">About</a>
+    <a href="#story" class="text-2xl hover:text-red-500 transition">Story</a>
+    <a href="#rival" class="text-2xl hover:text-red-500 transition">The Rival</a>
+    <a href="#news" class="text-2xl hover:text-red-500 transition">News</a>
+    <button id="closeMobileMenu" class="text-2xl text-red-500 mt-4">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
 
   <!-- Hero Section -->
   <section class="hero-bg min-h-screen flex flex-col items-center justify-center text-center px-4">
@@ -128,15 +140,12 @@
       <!-- Buttons in a centered flex container -->
       <div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
         <!-- King's Decree button -->
-        <button
-          class="bg-terry-red hover:bg-red-800 px-8 py-3 rounded-full font-bold uppercase tracking-wider transition">
+        <button class="bg-terry-red hover:bg-red-800 px-8 py-3 rounded-full font-bold uppercase tracking-wider transition">
           King's Decree
         </button>
 
         <!-- Pay Respect Button -->
-        <button
-          id="payRespectBtn"
-          class="border-2 border-terry-red hover:bg-red-900 px-8 py-3 rounded-full font-bold uppercase tracking-wider transition">
+        <button id="payRespectBtn" class="border-2 border-terry-red hover:bg-red-900 px-8 py-3 rounded-full font-bold uppercase tracking-wider transition">
           Pay Respect
         </button>
       </div>
@@ -146,17 +155,9 @@
         <div class="bg-gray-800 border border-terry-red rounded p-4">
           <p class="text-terry-red font-bold mb-2 text-center uppercase">Respects Paid</p>
           <div class="bg-gray-600 rounded h-6">
-            <div
-              id="respectBarFill"
-              class="bg-terry-red h-6 rounded-l"
-              style="width: 0%; transition: width 0.3s ease;">
-            </div>
+            <div id="respectBarFill" class="bg-terry-red h-6 rounded-l" style="width: 0%; transition: width 0.3s ease;"></div>
           </div>
-          <p
-            id="respectBarLabel"
-            class="text-sm text-gray-300 mt-2 text-center">
-            0%
-          </p>
+          <p id="respectBarLabel" class="text-sm text-gray-300 mt-2 text-center">0%</p>
         </div>
       </div>
     </div>
@@ -230,10 +231,10 @@
       <div class="relative">
         <!-- Timeline -->
         <div class="space-y-16">
-          <!-- Item 1 -->
-          <div class="relative timeline-item pl-8 md:pl-0">
+          <!-- Timeline Item 1 -->
+          <div class="relative timeline-item pl-0 md:pl-8">
             <div class="md:flex">
-              <div class="md:w-1/2 md:pr-12 md:text-right">
+              <div class="md:w-1/2 md:pr-12 text-center md:text-right">
                 <h3 class="title-font text-2xl terry-red mb-2">1988 - Humble Beginnings</h3>
                 <p class="text-gray-300">
                   Born to a single mother in Alliance's east side, young Terry learned to fight early,
@@ -244,11 +245,11 @@
             </div>
             <div class="timeline-dot"></div>
           </div>
-          <!-- Item 2 -->
-          <div class="relative timeline-item pl-8 md:pl-0">
+          <!-- Timeline Item 2 -->
+          <div class="relative timeline-item pl-0 md:pl-8">
             <div class="md:flex">
               <div class="hidden md:block md:w-1/2 md:pr-12"></div>
-              <div class="md:w-1/2">
+              <div class="md:w-1/2 text-center">
                 <h3 class="title-font text-2xl terry-red mb-2">2005 - First Underground Fight</h3>
                 <p class="text-gray-300">
                   At 17, Terry entered his first illegal boxing match to pay his mother's medical bills.
@@ -258,10 +259,10 @@
             </div>
             <div class="timeline-dot"></div>
           </div>
-          <!-- Item 3 -->
-          <div class="relative timeline-item pl-8 md:pl-0">
+          <!-- Timeline Item 3 -->
+          <div class="relative timeline-item pl-0 md:pl-8">
             <div class="md:flex">
-              <div class="md:w-1/2 md:pr-12 md:text-right">
+              <div class="md:w-1/2 md:pr-12 text-center md:text-right">
                 <h3 class="title-font text-2xl terry-red mb-2">2010 - The Nickname</h3>
                 <p class="text-gray-300">
                   After winning 25 straight fights with his bare knuckles (refusing gloves),
@@ -272,11 +273,11 @@
             </div>
             <div class="timeline-dot"></div>
           </div>
-          <!-- Item 4 -->
-          <div class="relative timeline-item pl-8 md:pl-0">
+          <!-- Timeline Item 4 -->
+          <div class="relative timeline-item pl-0 md:pl-8">
             <div class="md:flex">
               <div class="hidden md:block md:w-1/2 md:pr-12"></div>
-              <div class="md:w-1/2">
+              <div class="md:w-1/2 text-center">
                 <h3 class="title-font text-2xl terry-red mb-2">2012 - Crowning Moment</h3>
                 <p class="text-gray-300">
                   Defeated the reigning "King of Alliance" in a legendary 12-round street fight.
@@ -286,10 +287,10 @@
             </div>
             <div class="timeline-dot"></div>
           </div>
-          <!-- Item 5 -->
-          <div class="relative timeline-item pl-8 md:pl-0">
+          <!-- Timeline Item 5 -->
+          <div class="relative timeline-item pl-0 md:pl-8">
             <div class="md:flex">
-              <div class="md:w-1/2 md:pr-12 md:text-right">
+              <div class="md:w-1/2 md:pr-12 text-center md:text-right">
                 <h3 class="title-font text-2xl terry-red mb-2">2018 - Rival Emerges</h3>
                 <p class="text-gray-300">
                   Brayden Powers, a cocky fighter from Youngstown, began challenging Terry's reign,
@@ -300,11 +301,11 @@
             </div>
             <div class="timeline-dot"></div>
           </div>
-          <!-- Item 6 -->
-          <div class="relative pl-8 md:pl-0">
+          <!-- Timeline Item 6 -->
+          <div class="relative timeline-item pl-0 md:pl-8">
             <div class="md:flex">
               <div class="hidden md:block md:w-1/2 md:pr-12"></div>
-              <div class="md:w-1/2">
+              <div class="md:w-1/2 text-center">
                 <h3 class="title-font text-2xl terry-red mb-2">Present Day</h3>
                 <p class="text-gray-300">
                   Terry continues to rule Alliance with an iron fist, keeping the streets safe while
@@ -525,7 +526,7 @@
                 <strong>Full Article:</strong> At 4:00 AM each morning, Terry begins with 10 miles of roadwork
                 followed by intensive calisthenics. Later sessions focus on heavy bag work, sparring,
                 and cross-training with local wrestlers. Terry states the new regimen is designed to keep
-                him “one step ahead” of any challengers. 
+                him “one step ahead” of any challengers.
               </p>
             </div>
             <!-- Read More link -->
@@ -562,7 +563,7 @@
                 <strong>Full Article:</strong> Witnesses said Terry’s “Alliance Annihilator” hook
                 proved too much for Marco, who put up a strong fight early on. The crowd of
                 about 200 people erupted when Terry landed the final blow. While the fight was
-                unsanctioned, the victory only cements Terry’s local legend. 
+                unsanctioned, the victory only cements Terry’s local legend.
               </p>
             </div>
             <!-- Read More link -->
@@ -657,32 +658,30 @@
     </div>
   </footer>
 
-  <!-- Mobile Menu & Smooth Scrolling & Read More Toggles -->
+  <!-- Scripts for Mobile Menu, Smooth Scrolling, Read More Toggles, & Respect Bar -->
   <script>
-    // Simple mobile menu toggle
-    document.querySelector('button.md\\:hidden').addEventListener('click', function() {
-      const menu = document.querySelector('.hidden.md\\:flex');
-      if (menu.classList.contains('hidden')) {
-        menu.classList.remove('hidden');
-        menu.classList.add('flex', 'flex-col', 'absolute', 'top-16', 'left-0', 'right-0', 'bg-black', 'py-4', 'px-6', 'space-y-4', 'z-50');
-      } else {
-        menu.classList.add('hidden');
-        menu.classList.remove('flex', 'flex-col', 'absolute', 'top-16', 'left-0', 'right-0', 'bg-black', 'py-4', 'px-6', 'space-y-4', 'z-50');
-      }
+    // Mobile Menu Toggle
+    const openMobileMenu = document.getElementById('openMobileMenu');
+    const closeMobileMenu = document.getElementById('closeMobileMenu');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    openMobileMenu.addEventListener('click', () => {
+      mobileMenu.classList.remove('hidden');
     });
-    
+
+    closeMobileMenu.addEventListener('click', () => {
+      mobileMenu.classList.add('hidden');
+    });
+
     // Smooth scrolling for anchor links (excluding "Read More" links)
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function(e) {
         if (!this.classList.contains('read-more')) {
           e.preventDefault();
           document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
-          
           // Close mobile menu if open
-          const mobileMenu = document.querySelector('.hidden.md\\:flex');
           if (!mobileMenu.classList.contains('hidden')) {
             mobileMenu.classList.add('hidden');
-            mobileMenu.classList.remove('flex', 'flex-col', 'absolute', 'top-16', 'left-0', 'right-0', 'bg-black', 'py-4', 'px-6', 'space-y-4', 'z-50');
           }
         }
       });
@@ -694,14 +693,7 @@
         e.preventDefault();
         const articleId = btn.getAttribute('data-target');
         const fullArticle = document.getElementById(articleId);
-        
-        if (fullArticle.style.display === 'block') {
-          // Hide it
-          fullArticle.style.display = 'none';
-        } else {
-          // Show it
-          fullArticle.style.display = 'block';
-        }
+        fullArticle.style.display = fullArticle.style.display === 'block' ? 'none' : 'block';
       });
     });
 
@@ -714,24 +706,15 @@
     let respectsPaid = 0;
 
     payRespectBtn.addEventListener('click', () => {
-      // Show the progress bar container if hidden
       if (respectBarContainer.classList.contains('hidden')) {
         respectBarContainer.classList.remove('hidden');
       }
-      // Increase respectsPaid by 10 (or however much you like)
       if (respectsPaid < 100) {
         respectsPaid += 10;
       }
-      // Update the bar's width and text
       respectBarFill.style.width = respectsPaid + '%';
       respectBarLabel.textContent = respectsPaid + '%';
-      
-      // If the bar hits 100%, do something special (optional)
-      if (respectsPaid === 100) {
-        // alert("Your respects have been fully paid!");
-      }
     });
   </script>
-
- 
+</body>
 </html>
